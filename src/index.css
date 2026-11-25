@@ -1,0 +1,97 @@
+@import "tailwindcss";
+
+@theme {
+  --color-ivory: #faf9f6;
+  --color-ivory-deep: #f3eee2;
+  --color-powder: #d6e7f0;
+  --color-powder-deep: #a9cbdc;
+  --color-sage: #b7c9b2;
+  --color-sage-deep: #7f9c7a;
+  --color-teal: #0e5552;
+  --color-teal-light: #167d78;
+  --color-teal-dark: #0e5552;
+  --color-ink: #1f2a2a;
+  --color-muted: #566664;
+  --color-coral: #e88d72;
+  --color-accent: #2c6a92; /* deep powder-blue accent text: readable on ivory/white */
+  --color-honey: #f6ecd2; /* soft yellow tile tint */
+
+  --font-display: "Fredoka", "Anek Kannada", system-ui, sans-serif;
+  --font-sans: "Plus Jakarta Sans", "Anek Kannada", system-ui, sans-serif;
+  --font-kn: "Anek Kannada", "Plus Jakarta Sans", sans-serif;
+
+  --shadow-soft: 0 12px 32px -10px rgb(14 85 82 / 0.10), 0 2px 6px -2px rgb(14 85 82 / 0.05);
+  --shadow-lift: 0 26px 56px -18px rgb(14 85 82 / 0.22);
+
+  --animate-float: float 9s ease-in-out infinite;
+  --animate-float-slow: float 14s ease-in-out infinite;
+  --animate-spin-slow: spin 40s linear infinite;
+  --animate-bob: bob 3.2s ease-in-out infinite;
+
+  @keyframes bob {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-6px); }
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translate3d(0, 0, 0) rotate(0deg); }
+    33% { transform: translate3d(12px, -18px, 0) rotate(4deg); }
+    66% { transform: translate3d(-10px, 10px, 0) rotate(-3deg); }
+  }
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-tap-highlight-color: transparent;
+    font-family: var(--font-sans);
+  }
+  body {
+    @apply bg-ivory text-ink font-sans antialiased;
+    font-family: var(--font-sans);
+    text-rendering: optimizeLegibility;
+  }
+  h1, h2, h3, h4, h5, h6, .font-display {
+    font-family: var(--font-display);
+  }
+  button, input, optgroup, select, textarea {
+    font-family: inherit;
+  }
+  /* Kannada typography rules */
+  html[lang="kn"] body {
+    font-family: var(--font-kn);
+    line-height: 1.8;
+  }
+  html[lang="kn"] h1, html[lang="kn"] h2, html[lang="kn"] h3, html[lang="kn"] h4, html[lang="kn"] h5, html[lang="kn"] h6, html[lang="kn"] .font-display {
+    font-family: var(--font-kn);
+    letter-spacing: 0;
+    line-height: 1.4;
+  }
+  ::selection { background: var(--color-powder-deep); color: var(--color-teal-dark); }
+  :focus-visible { outline: 2px solid var(--color-teal-light); outline-offset: 3px; border-radius: 6px; }
+}
+
+@utility container-x { @apply mx-auto w-full max-w-6xl px-4 sm:px-8; }
+/* One vertical rhythm for every page section: enough air between sections to keep the page calm */
+@utility section-y { @apply py-6 sm:py-9 lg:py-11; }
+@utility btn { @apply inline-flex items-center justify-center gap-2 rounded-full px-5 py-2.5 sm:px-6 sm:py-3 text-sm font-semibold transition-all duration-300 active:scale-[0.97] disabled:opacity-50; }
+@utility btn-primary { @apply btn bg-teal text-ivory shadow-soft hover:bg-teal-light hover:shadow-lift hover:-translate-y-0.5; }
+@utility btn-ghost { @apply btn border border-teal/20 bg-white/60 text-teal backdrop-blur hover:border-teal/40 hover:bg-white; }
+@utility btn-whatsapp { @apply btn bg-[#25D366] text-white shadow-soft hover:brightness-95 hover:-translate-y-0.5; }
+@utility card { @apply rounded-3xl border border-teal/[0.05] bg-white shadow-soft; }
+@utility eyebrow { @apply inline-flex items-center gap-2 rounded-full bg-powder/70 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.14em] text-teal; }
+@utility input { @apply w-full rounded-xl border border-teal/15 bg-white px-4 py-2.5 text-sm text-ink outline-none transition focus:border-teal-light focus:ring-4 focus:ring-powder; }
+@utility label { @apply mb-1.5 block text-xs font-semibold uppercase tracking-wider text-muted; }
+
+/* Article typography */
+.prose-guide h2 { @apply mt-8 mb-2 font-display text-xl font-semibold text-teal sm:mt-10 sm:mb-3 sm:text-2xl; }
+.prose-guide p { @apply my-3 text-base leading-7 text-ink/85 sm:my-4 sm:text-[1.05rem] sm:leading-8; }
+.prose-guide ul:not(.not-prose ul) { @apply my-4 space-y-2.5; }
+.prose-guide li:not(.not-prose li) { @apply relative pl-6 text-base leading-7 text-ink/85 sm:pl-7 sm:text-[1.05rem]; }
+.prose-guide li:not(.not-prose li)::before { content: ""; @apply absolute left-1 top-[0.7em] h-2 w-2 rounded-full bg-sage-deep; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
+}
+
+@keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
